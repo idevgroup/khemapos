@@ -15,10 +15,10 @@
                         <i class="fa fa-calendar"></i>
                     </span>
                     @php
-                        $start_date = null;
-                        if(!empty($business->start_date)){
-                            $start_date = date('m/d/Y', strtotime($business->start_date));
-                        }
+                    $start_date = null;
+                    if(!empty($business->start_date)){
+                    $start_date = date('m/d/Y', strtotime($business->start_date));
+                    }
                     @endphp
                     {!! Form::text('start_date', $start_date, ['class' => 'form-control start-date-picker','placeholder' => __('business.start_date'), 'readonly']); !!}
                 </div>
@@ -68,8 +68,8 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('business_logo', __('business.upload_logo') . ':') !!}
-                    {!! Form::file('business_logo', ['accept' => 'image/*']); !!}
-                    <p class="help-block"><i> @lang('business.logo_help')</i></p>
+                {!! Form::file('business_logo', ['accept' => 'image/*']); !!}
+                <p class="help-block"><i> @lang('business.logo_help')</i></p>
             </div>
         </div>
         <div class="col-md-4">
@@ -128,6 +128,25 @@
                     </span>
                     {!! Form::select('time_format', [12 => __('lang_v1.12_hour'), 24 => __('lang_v1.24_hour')], $business->time_format, ['class' => 'form-control select2', 'required']); !!}
                 </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                {!! Form::label('exchange_rate[USD]', 'USD') !!}
+                {!! Form::text('exchange_rate[USD]', $exchange_rate['USD'], ['class' => 'form-control','placeholder' => 'URL']); !!}
+            </div>
+
+        </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+                {!! Form::label('exchange_rate[KHR]', 'KHR') !!}
+                {!! Form::text('exchange_rate[KHR]', $exchange_rate['KHR'], ['class' => 'form-control','placeholder' => 'URL']); !!}
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                {!! Form::label('exchange_rate[KHR_IN]', 'KHR IN') !!}
+                {!! Form::text('exchange_rate[KHR_IN]', $exchange_rate['KHR_IN'], ['class' => 'form-control','placeholder' => 'URL']); !!}
             </div>
         </div>
     </div>

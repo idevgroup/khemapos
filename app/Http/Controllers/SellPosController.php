@@ -244,6 +244,7 @@ class SellPosController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request->all());
         if (!auth()->user()->can('sell.create') && !auth()->user()->can('direct_sell.access')) {
             abort(403, 'Unauthorized action.');
         }
@@ -554,7 +555,6 @@ class SellPosController extends Controller
         //Check if printing of invoice is enabled or not.
         //If enabled, get print type.
         $output['is_enabled'] = true;
-
         $invoice_layout = $this->businessUtil->invoiceLayout($business_id, $location_id, $location_details->invoice_layout_id);
 
         //Check if printer setting is provided.

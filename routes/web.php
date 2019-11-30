@@ -11,9 +11,9 @@
 |
 */
 
-include_once('install_r.php');
+//include_once('install_r.php');
 
-Route::middleware(['IsInstalled', 'bootstrap'])->group(function () {
+Route::middleware(['IsInstalled'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
@@ -30,7 +30,7 @@ Route::middleware(['IsInstalled', 'bootstrap'])->group(function () {
 });
 
 //Routes for authenticated users only
-Route::middleware(['IsInstalled', 'auth', 'SetSessionData', 'language', 'timezone', 'bootstrap'])->group(function () {
+Route::middleware(['IsInstalled', 'auth', 'SetSessionData', 'language', 'timezone'])->group(function () {
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::get('/home', 'HomeController@index')->name('home');

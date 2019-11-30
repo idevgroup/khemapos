@@ -37,6 +37,7 @@ class Business extends Model
         'enabled_modules' => 'array',
         'email_settings' => 'array',
         'sms_settings' => 'array',
+        'exchange_rate' => 'array'
     ];
 
     /**

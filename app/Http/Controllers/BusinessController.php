@@ -337,7 +337,15 @@ class BusinessController extends Controller
         } else {
             $sms_settings = $business->sms_settings;
         }
-
+        
+        $exchange_rate = [];
+        if(empty($business->exchange_rate)){
+            $exchange_rate = $this->businessUtil->defaultExchangeRate();
+        }else{
+            $exchange_rate = $business->exchange_rate;
+        }
+        
+        
         $modules = $this->avlble_modules;
 
         $theme_colors = $this->theme_colors;
@@ -346,7 +354,7 @@ class BusinessController extends Controller
 
         $allow_superadmin_email_settings = System::getProperty('allow_email_settings_to_businesses');
 
-        return view('business.settings', compact('business', 'currencies', 'tax_rates', 'timezone_list', 'months', 'accounting_methods', 'commission_agent_dropdown', 'units_dropdown', 'date_formats', 'shortcuts', 'pos_settings', 'modules', 'theme_colors', 'email_settings', 'sms_settings', 'mail_drivers', 'allow_superadmin_email_settings'));
+        return view('business.settings', compact('business', 'currencies', 'tax_rates', 'timezone_list', 'months', 'accounting_methods', 'commission_agent_dropdown', 'units_dropdown', 'date_formats', 'shortcuts', 'pos_settings', 'modules', 'theme_colors', 'email_settings', 'sms_settings', 'mail_drivers', 'allow_superadmin_email_settings','exchange_rate'));
     }
 
     /**
@@ -357,6 +365,7 @@ class BusinessController extends Controller
      */
     public function postBusinessSettings(Request $request)
     {
+        
         if (!auth()->user()->can('business_settings.access')) {
             abort(403, 'Unauthorized action.');
         }
@@ -369,7 +378,7 @@ class BusinessController extends Controller
                 'min_order_total_for_rp', 'max_rp_per_order',
                 'redeem_amount_per_unit_rp', 'min_order_total_for_redeem',
                 'min_redeem_point', 'max_redeem_point', 'rp_expiry_period',
-                'rp_expiry_type']);
+                'rp_expiry_type','exchange_rate']);
 
             if (!empty($request->input('enable_rp')) &&  $request->input('enable_rp') == 1) {
                 $business_details['enable_rp'] = 1;
@@ -451,7 +460,7 @@ class BusinessController extends Controller
                 }
             }
             $business_details['pos_settings'] = json_encode($pos_settings);
-
+            $business_details['exchange_rate'] = $request->input('exchange_rate');
             //Enabled modules
             $enabled_modules = $request->input('enabled_modules');
             $business_details['enabled_modules'] = !empty($enabled_modules) ? $enabled_modules : null;
