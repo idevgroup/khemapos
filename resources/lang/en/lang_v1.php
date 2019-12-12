@@ -766,4 +766,5 @@ return [
     'enable_sub_units' => 'Enable Sub Units',
     'added_on' => 'Added On',
     'quantity_mismatch_exception' => 'ERROR: NOT ALLOWED: Mismatch between sold and available quantity. Product: :product',
+    'printlbl_selected' => 'Print Label'
 ];

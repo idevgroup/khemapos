@@ -39,7 +39,7 @@
                     {!! Form::submit(__('lang_v1.deactivate_selected'), array('class' => 'btn btn-xs btn-warning', 'id' => 'deactivate-selected')) !!}
                     {!! Form::close() !!} @show_tooltip(__('lang_v1.deactive_product_tooltip'))
                      &nbsp;
-                    
+                     {!! Form::button(__('lang_v1.printlbl_selected'), array('class' => 'btn btn-xs btn-info', 'id' => 'printlbl-selected')) !!}
                     </div>
                 </td>
             </tr>
