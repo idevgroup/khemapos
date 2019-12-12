@@ -38,6 +38,8 @@
                     {!! Form::hidden('selected_products', null, ['id' => 'selected_products']); !!}
                     {!! Form::submit(__('lang_v1.deactivate_selected'), array('class' => 'btn btn-xs btn-warning', 'id' => 'deactivate-selected')) !!}
                     {!! Form::close() !!} @show_tooltip(__('lang_v1.deactive_product_tooltip'))
+                     &nbsp;
+                    
                     </div>
                 </td>
             </tr>

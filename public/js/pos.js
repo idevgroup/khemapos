@@ -641,6 +641,7 @@ $(document).ready(function () {
                 // 	alert( LANG.paid_amount_is_more_than_payable );
                 // 	cnf = false;
                 // }
+                
             }
 
             if (cnf) {
@@ -680,15 +681,50 @@ $(document).ready(function () {
         },
     });
 
-    $(document).on('change', '.payment-amount', function () {
+    $(document).on('keyup keypress blur change', '.payment-amount', function () {
         calculate_balance_due();
     });
-    $(document).on('change', '.payment-amount-khr', function () {
+    $(document).on('keyup keypress blur change', '.payment-amount-khr', function () {
         calculate_balance_due_kh();
     });
-    
-    function calculate_balance_due_kh(){
-        
+
+    function calculate_balance_due_kh() {
+        var total_payable = __read_number($('input#final_total_khr'));
+        var paying_usd = __read_number($('input#total_paying_input'))
+        var paying_khr = __read_number($('input#total_paying_input_khr'))
+        var paying_amount_khr = 0;
+        $('#payment_rows_div')
+                .find('.payment-amount-khr')
+                .each(function () {
+                    if (parseFloat($(this).val())) {
+                        paying_amount_khr += __read_number($(this));
+                    }
+                });
+
+        if (paying_amount_khr > paying_khr) {
+            var x = (parseFloat(paying_khr) - parseFloat(paying_amount_khr)) / parseFloat(khr_in);
+            var int_part = Math.trunc(x); // returns 3
+            var float_part = Number((x - int_part).toFixed(2)); // return 0.2
+            var return_decimal = parseFloat(float_part) * parseFloat(khr)
+            __write_number($('input#change_return'), x * -1);
+            $('span.change_return_span').text(__currency_trans_from_en(int_part * -1, true));
+            $('span.change_return_khr').text(__currency_trans_from_khr(return_decimal * -1, true));
+             __write_number($('input#in_balance_due'), 0);
+             $('span.balance_due').text(__currency_trans_from_en(0, true));
+              __write_number($('input#paying_in_khmer'), paying_amount_khr);
+              __write_number($('input#return_in_khmer'), return_decimal*-1);
+        } else {
+            var bal_due = (parseFloat(paying_khr) - parseFloat(paying_amount_khr)) / parseFloat(khr_in);
+            __write_number($('input#in_balance_due'), bal_due);
+            $('span.balance_due').text(__currency_trans_from_en(bal_due, true));
+            __highlight(bal_due * -1, $('span.balance_due'));
+            __highlight(bal_due * -1, $('span.change_return_span'));
+            __write_number($('input#change_return'), 0);
+            $('span.change_return_span').text(__currency_trans_from_en(0, true));
+            $('span.change_return_khr').text(__currency_trans_from_khr(0, true));
+            __write_number($('input#paying_in_khmer'), paying_amount_khr);
+            __write_number($('input#return_in_khmer'), 0);
+        }
     }
     //Update discount
     $('button#posEditDiscountModalUpdate').click(function () {
@@ -1371,10 +1407,10 @@ function calculate_billing_details(price_total) {
     var shipping_charges = __read_number($('input#shipping_charges'));
 
     var total_payable = price_total + order_tax - discount + shipping_charges;
-    var total_payable_khr = parseFloat(total_payable) * parseFloat(khr)
+    var total_payable_khr = parseFloat(total_payable) * parseFloat(khr_in)
     __write_number($('input#final_total_input'), total_payable);
     __write_number($('input#final_total_khr'), total_payable_khr);
-    
+
     var curr_exchange_rate = 1;
     if ($('#exchange_rate').length > 0 && $('#exchange_rate').val()) {
         curr_exchange_rate = __read_number($('#exchange_rate'));
@@ -1388,7 +1424,7 @@ function calculate_billing_details(price_total) {
     if ($('form#edit_pos_sell_form').length == 0) {
         __write_number($('.payment-amount').first(), total_payable);
 
-        var total_with_exch = parseFloat(total_payable) * parseFloat(khr)
+        var total_with_exch = parseFloat(total_payable) * parseFloat(khr_in)
         __write_number($('.payment-amount-khr').first(), 0);
         __write_number($('input#total_payable_khr'), total_with_exch);
         $('span.total_payable_khr').text(__currency_trans_from_khr(total_with_exch, true));
@@ -1447,23 +1483,25 @@ function calculate_balance_due() {
                 }
             });
     var bal_due = total_payable - total_paying;
-
+    var total_paying_khr = 0;
     var change_return = 0;
 
     //change_return
     if (bal_due < 0 || Math.abs(bal_due) < 0.05) {
         __write_number($('input#change_return'), bal_due * -1);
         var x = bal_due;
-        int_part = Math.trunc(x); // returns 3
-        float_part = Number((x - int_part).toFixed(2)); // return 0.2
+        var int_part = Math.trunc(x); // returns 3
+        var float_part = Number((x - int_part).toFixed(2)); // return 0.2
         var return_decimal = parseFloat(float_part) * parseFloat(khr)
         $('span.change_return_span').text(__currency_trans_from_en(int_part * -1, true));
-        $('span.change_return_khr').text(__currency_trans_from_khr(return_decimal * -1, true));
-
+        $('span.change_return_khr').text(__currency_trans_from_khr(return_decimal * -1, true));  
+        __write_number($('input#paying_in_khmer'), 0);
         change_return = bal_due * -1;
         bal_due = 0;
     } else {
         __write_number($('input#change_return'), 0);
+        __write_number($('input#paying_in_khmer'), 0);
+        __write_number($('input#return_in_khmer'), 0);
         $('span.change_return_span').text(__currency_trans_from_en(0, true));
         $('span.change_return_khr').text(__currency_trans_from_khr(0, true));
         change_return = 0;
@@ -1475,29 +1513,32 @@ function calculate_balance_due() {
         $('span.total_paying_khr').text(__currency_trans_from_khr(0, true));
         __write_number($('.payment-amount-khr').first(), 0);
         __write_number($('input#total_paying_input_khr'), 0);
+        __write_number($('input#paying_in_khmer'), 0);
+        __write_number($('input#return_in_khmer'), 0);
+        
     } else {
         var paying_subs = parseFloat(total_payable) - parseFloat(total_paying)
-        var total_paying_khr = parseFloat(paying_subs) * parseFloat(khr_in)
+         total_paying_khr = parseFloat(paying_subs) * parseFloat(khr_in)
         $('span.total_paying_khr').text(__currency_trans_from_khr(total_paying_khr, true));
         __write_number($('.payment-amount-khr').first(), total_paying_khr);
         __write_number($('input#total_paying_input_khr'), total_paying_khr);
+        __write_number($('input#paying_in_khmer'), total_paying_khr);
+        var exchange_to_usd = parseFloat(total_paying_khr) / parseFloat(khr_in);
+        var total_paying_amount = parseFloat(total_paying) + parseFloat(exchange_to_usd)
+        // console.log(exchange_to_usd,total_paying_amount)
+        if (total_paying_amount == total_payable) {
+            bal_due = 0;
+        }
 
-       var exchange_to_usd = parseFloat(total_paying_khr) / parseFloat(khr_in);
-       var total_paying_amount = parseFloat(total_paying) + parseFloat(exchange_to_usd)
-      // console.log(exchange_to_usd,total_paying_amount)
-       if(total_paying_amount == total_payable){
-           bal_due = 0;
-       }
-        
 
     }
-
     __write_number($('input#in_balance_due'), bal_due);
-
+    __write_number($('input#paying_in_khmer'), total_paying_khr);
     $('span.balance_due').text(__currency_trans_from_en(bal_due, true));
 
     __highlight(bal_due * -1, $('span.balance_due'));
     __highlight(change_return * -1, $('span.change_return_span'));
+
 }
 
 function isValidPosForm() {
@@ -1769,7 +1810,16 @@ $(document).on('click', '.print-invoice-link', function (e) {
         },
     });
 });
-
+$(document).on('click','.btn-amount',function(e){
+  e.preventDefault();
+  var atm = $(this).data('atm');
+  var row = $(this).data('row');
+  if(atm == 'usd'){
+      $('input#amount_'+row).focus().select();
+  }else{
+      $('input#amountkhr_'+row).focus().select();
+  }
+});
 function getCustomerRewardPoints() {
     if ($('#reward_point_enabled').length <= 0) {
         return false;

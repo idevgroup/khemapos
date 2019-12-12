@@ -26,8 +26,10 @@
                                 @endforeach
                             </div>
                             <input type="hidden" id="payment_row_index" value="{{count($payment_lines)}}">
-                            <input type="hidden" id="exchange_rate_khr">
-                            <input type="hidden" id="exchange_rate_khr_in">
+                            <input type="hidden" id="exchange_rate_khr" name="exch_khr">
+                            <input type="hidden" id="exchange_rate_khr_in" name="exch_khr_in">
+                            <input type="hidden" id="paying_in_khmer" name="paying_in_khmer" value="0">
+                            <input type="hidden" id="return_in_khmer" name="return_in_khmer" value="0" />
                         </div>
                         <div class="row">
                             <div class="col-md-12">

@@ -9,7 +9,7 @@
     <div class="{{$col_class}}">
         <div class="form-group">
             {!! Form::label("amount_$row_index" ,__('sale.amount') . ' USD:*') !!}
-             <div class="input-group">
+            <div class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-money"></i>
                 </span>
@@ -18,6 +18,7 @@
         </div>
     </div>
     <div class="{{$col_class}}">
+
         <div class="form-group">
             {!! Form::label("method_$row_index" , __('lang_v1.payment_method') . ':*') !!}
             <div class="input-group">
@@ -28,16 +29,26 @@
             </div>
         </div>
     </div>
-       <div class="{{$col_class}}">
+    <div class="{{$col_class}}">
         <div class="form-group">
             {!! Form::label("amountkhr_$row_index" ,__('sale.amount') . ' KHR:') !!}
-            
+
             <div class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-money"></i>
                 </span>
-                {!! Form::text("paymentkhr", '', ['class' => 'form-control payment-amount-khr input_number', 'id' => "amountkhr_$row_index", 'placeholder' => __('sale.amount')]); !!}
+                {!! Form::text("payment[$row_index][amountkhr]", @num_format($payment_line['amountkhr']), ['class' => 'form-control payment-amount-khr input_number', 'id' => "amountkhr_$row_index", 'placeholder' => __('sale.amount')]); !!}
             </div>
+        </div>
+    </div>
+    <div class="{{$col_class}}">
+        <div class="form-group">
+            <a class="btn btn-app btn-amount btn-success" data-atm="usd" data-row="{{$row_index}}">
+                <i class="fa fa-usd"></i> USD
+            </a>
+            <a class="btn btn-app btn-amount btn-success" data-atm="khr" data-row="{{$row_index}}">
+                <i class="fa fa-khr">&#x17db;</i> KHR
+            </a>
         </div>
     </div>
     @if(!empty($accounts))

@@ -1,6 +1,5 @@
 <!-- business information here -->
-
-<div class="row">
+<div class="row" style="margin: 0px">
 
     <!-- Logo -->
     @if(!empty($receipt_details->logo))
@@ -34,7 +33,7 @@
             <br/>{{ $receipt_details->contact }}
             @endif	
             @if(!empty($receipt_details->contact) && !empty($receipt_details->website))
-            , 
+            ,
             @endif
             @if(!empty($receipt_details->website))
             {{ $receipt_details->website }}
@@ -110,25 +109,25 @@
                 <br/>
                 <b>{{ $receipt_details->client_id_label }}</b> {{ $receipt_details->client_id }}
                 @endif
-                @if(!empty($receipt_details->customer_tax_label))
-                <br/>
+                @if(!empty($receipt_details->customer_tax_label))               
                 <b>{{ $receipt_details->customer_tax_label }}</b> {{ $receipt_details->customer_tax_number }}
                 @endif
                 @if(!empty($receipt_details->customer_custom_fields))
                 <br/>{!! $receipt_details->customer_custom_fields !!}
                 @endif
-                @if(!empty($receipt_details->sales_person_label))    
-                <b>{{ $receipt_details->sales_person_label }}</b> {{ $receipt_details->sales_person }}
-                @endif
+               
                 @if(!empty($receipt_details->customer_rp_label))
                 <br/>
-                <strong>{{ $receipt_details->customer_rp_label }}</strong> {{ $receipt_details->customer_total_rp }}
+                <b>{{ $receipt_details->customer_rp_label }}</b> {{ $receipt_details->customer_total_rp }}
                 @endif
             </span>
 
             <span class="pull-right text-left">
                 <b>{{$receipt_details->date_label}}</b> {{$receipt_details->invoice_date}}
-
+                 @if(!empty($receipt_details->sales_person_label)) 
+                 <br/>
+                <b>{{ $receipt_details->sales_person_label }}</b> {{ $receipt_details->sales_person }}
+                @endif
                 @if(!empty($receipt_details->serial_no_label) || !empty($receipt_details->repair_serial_no))
                 <br>
                 @if(!empty($receipt_details->serial_no_label))
@@ -174,11 +173,8 @@
     @endif
     <!-- /.col -->
 </div>
-
-
 <div class="row">
-    <div class="col-xs-12">
-        <br/><br/>
+    <div class="col-xs-12">      
         <table class="table table-responsive">
             <thead>
                 <tr>
@@ -233,26 +229,102 @@
 </div>
 
 <div class="row">
-    <br/>
-    <div class="col-md-12"><hr/></div>
-    <br/>
+ 
+    <div class="col-xs-12">
 
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th style="width: 80%" >
+                            {!! $receipt_details->subtotal_label !!}
+                        </th>
+                       
+                        <td>
+                            
+                            {{$receipt_details->subtotal}}
+                        </td>
+                    </tr>
 
-    <div class="col-xs-6">
+                    <!-- Shipping Charges -->
+                    @if(!empty($receipt_details->shipping_charges))
+                    <tr>
+                        <th style="width: 80%">
+                            {!! $receipt_details->shipping_charges_label !!}
+                        </th>
+                       
+                        <td>
+                            {{$receipt_details->shipping_charges}}
+                        </td>
+                    </tr>
+                    @endif
 
-        <table class="table table-condensed hidden">
+                    <!-- Discount -->
+                    @if( !empty($receipt_details->discount) )
+                    <tr>
+                        <th style="width: 80%">
+                            {!! $receipt_details->discount_label !!}
+                        </th>
+
+                        <td>
+                            (-) {{$receipt_details->discount}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    @if( !empty($receipt_details->reward_point_label) )
+                    <tr>
+                        <th style="width: 80%">
+                            {!! $receipt_details->reward_point_label !!}
+                        </th>
+
+                        <td>
+                            (-) {{$receipt_details->reward_point_amount}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    <!-- Tax -->
+                    @if( !empty($receipt_details->tax) )
+                    <tr>
+                        <th style="width: 80%">
+                            {!! $receipt_details->tax_label !!}
+                        </th>
+                        <td>
+                            (+) {{$receipt_details->tax}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    <!-- Total -->
+                    <tr>
+                        <th style="width: 80%">
+                            {!! $receipt_details->total_label !!}
+                        </th>
+                        <td>
+                            {{$receipt_details->total}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="col-xs-12">
+
+        <table class="table table-condensed">
 
             @if(!empty($receipt_details->payments))
             @foreach($receipt_details->payments as $payment)
             <tr>
-                <td>{{$payment['method']}}</td>
-                <td>{{$payment['amount']}}</td>
-                <td class="hidden">{{$payment['date']}}</td>
+                <th style="width: 80%">{{$payment['method']}}</th>
+                <td>{{$payment['amount']}}</td>   
+                
             </tr>
             @endforeach
             @endif
 
-            <!-- Total Paid-->
+<!--             Total Paid
             @if(!empty($receipt_details->total_paid))
             <tr>
                 <th>
@@ -262,7 +334,7 @@
                     {{$receipt_details->total_paid}}
                 </td>
             </tr>
-            @endif
+            @endif-->
 
             <!-- Total Due-->
             @if(!empty($receipt_details->total_due))
@@ -291,84 +363,14 @@
         {{$receipt_details->additional_notes}}
     </div>
 
+</div>
+@if(!empty($receipt_details->footer_text))
+<div class="row">
     <div class="col-xs-12">
-
-        <div class="table-responsive">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th style="width:70%">
-                            {!! $receipt_details->subtotal_label !!}
-                        </th>
-                        <td>
-                            {{$receipt_details->subtotal}}
-                        </td>
-                    </tr>
-
-                    <!-- Shipping Charges -->
-                    @if(!empty($receipt_details->shipping_charges))
-                    <tr>
-                        <th style="width:70%">
-                            {!! $receipt_details->shipping_charges_label !!}
-                        </th>
-                        <td>
-                            {{$receipt_details->shipping_charges}}
-                        </td>
-                    </tr>
-                    @endif
-
-                    <!-- Discount -->
-                    @if( !empty($receipt_details->discount) )
-                    <tr>
-                        <th>
-                            {!! $receipt_details->discount_label !!}
-                        </th>
-
-                        <td>
-                            (-) {{$receipt_details->discount}}
-                        </td>
-                    </tr>
-                    @endif
-
-                    @if( !empty($receipt_details->reward_point_label) )
-                    <tr>
-                        <th>
-                            {!! $receipt_details->reward_point_label !!}
-                        </th>
-
-                        <td>
-                            (-) {{$receipt_details->reward_point_amount}}
-                        </td>
-                    </tr>
-                    @endif
-
-                    <!-- Tax -->
-                    @if( !empty($receipt_details->tax) )
-                    <tr>
-                        <th>
-                            {!! $receipt_details->tax_label !!}
-                        </th>
-                        <td>
-                            (+) {{$receipt_details->tax}}
-                        </td>
-                    </tr>
-                    @endif
-
-                    <!-- Total -->
-                    <tr>
-                        <th>
-                            {!! $receipt_details->total_label !!}
-                        </th>
-                        <td>
-                            {{$receipt_details->total}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        {!! $receipt_details->footer_text !!}
     </div>
 </div>
-
+@endif
 @if($receipt_details->show_barcode)
 <div class="row">
     <div class="col-xs-12">
@@ -378,10 +380,3 @@
 </div>
 @endif
 
-@if(!empty($receipt_details->footer_text))
-<div class="row">
-    <div class="col-xs-12">
-        {!! $receipt_details->footer_text !!}
-    </div>
-</div>
-@endif

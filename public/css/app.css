@@ -383,12 +383,19 @@ tr.details td.details-control {
 @media print{
     .print_section{
         display: inline !important;
+        font-family: 'Hanuman', serif;
     }
     .modal-xl{
         width: 100% !important;
     }
     ::-webkit-scrollbar{
         display: none !important;
+    }
+   table, table>tr>td, table>tr>th,label,p, span{
+        font-family: 'Hanuman', serif;
+    }
+    table th:last-child, table td:last-child{
+        text-align: right;
     }
 }
 
@@ -412,10 +419,12 @@ tr.details td.details-control {
 
 .font-30{
     font-size: 30px !important;
+      font-family: 'Hanuman', serif;
 }
 
 .font-23{
     font-size: 23px !important;
+      font-family: 'Hanuman', serif;
 }
 .padding-5{
     padding: 5px !important;
@@ -587,4 +596,7 @@ table.table-text-center td, table.table-text-center th{
 
 .bg-woocommerce{
   background-color: #9E458B !important;
+}
+.btn-app .fa-khr{
+    font-size: 20px;
 }

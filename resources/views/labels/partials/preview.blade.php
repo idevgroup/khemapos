@@ -60,9 +60,9 @@
 				<b>@lang('lang_v1.price'):</b>
 				<span class="display_currency" data-currency_symbol = true>
 					@if($print['price_type'] == 'inclusive')
-						{{$details['details']->sell_price_inc_tax}}
+						{{session('currency')['symbol']}} {{number_format($details['details']->sell_price_inc_tax,2)}}
 					@else
-						{{$details['details']->default_sell_price}}
+						{{session('currency')['symbol']}} {{number_format($details['details']->default_sell_price,2)}}
 					@endif
 				</span>
 			@endif

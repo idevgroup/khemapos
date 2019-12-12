@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/css?family=Hanuman&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/pace/pace.css?v='.$asset_v) }}">
 
 <!-- Font Awesome -->
