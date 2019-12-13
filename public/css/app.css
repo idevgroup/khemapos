@@ -600,3 +600,24 @@ table.table-text-center td, table.table-text-center th{
 .btn-app .fa-khr{
     font-size: 20px;
 }
+.table-product {
+    background: none;
+    height: 420px;
+}
+
+.table-scroll tbody {
+    position: absolute;
+    overflow-y: scroll;
+    height:350px;
+    margin-right: 15px;
+}
+
+.table-scroll tr {
+    width: 100%;
+    table-layout: fixed;
+    display: inline-table;
+}
+
+.table-scroll thead > tr > th {
+    border: none;
+}

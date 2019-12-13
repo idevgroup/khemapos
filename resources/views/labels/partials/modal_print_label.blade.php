@@ -1,8 +1,8 @@
 {!! Form::open(['url' => '#', 'method' => 'post', 'id' => 'preview_setting_form', 'onsubmit' => 'return false']) !!}
 
 <div class="row">
-    <div class="col-sm-12">
-        <table class="table table-bordered table-striped table-condensed" id="product_table">
+    <div class="col-sm-12 table-product">
+        <table class="table table-bordered table-striped table-condensed table-scroll" id="product_table">
             <thead>
                 <tr>
                     <th class="col-sm-8">@lang( 'barcode.products' )</th>
