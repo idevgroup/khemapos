@@ -719,7 +719,28 @@ class ProductUtil extends Util
 
         return $products;
     }
+    public function getDetailFromProducts($business_id, $product_id, $variation_id = null){
+         $product = Product::leftjoin('variations as v', 'products.id', '=', 'v.product_id')
+                        ->whereNull('v.deleted_at')
+                        ->where('products.business_id', $business_id);
 
+        if (!is_null($variation_id) && $variation_id !== '0') {
+            $product->where('v.id', $variation_id);
+        }
+
+        $product->whereIn('products.id', $product_id);
+
+        $products = $product->select(
+            'products.id as product_id',
+            'products.name as product_name',
+            'v.id as variation_id',
+            'v.name as variation_name'
+        )
+                    ->get();
+
+        return $products;
+    }
+    
     /**
      * F => D (Previous product Increase)
      * D => F (All product decrease)

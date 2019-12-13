@@ -1973,8 +1973,8 @@ class ProductController extends Controller
                     $html .= '<option value="' . $id .'">' .$sub_unit['name'] . '</option>';
                 }
             }
-
             return $html;
         }
     }
+   
 }

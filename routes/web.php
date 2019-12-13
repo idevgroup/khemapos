@@ -134,7 +134,7 @@ Route::middleware(['IsInstalled', 'auth', 'SetSessionData', 'language', 'timezon
     Route::get('/labels/show', 'LabelsController@show');
     Route::get('/labels/add-product-row', 'LabelsController@addProductRow');
     Route::get('/labels/preview', 'LabelsController@preview');
-
+    Route::get('/labels/load-product-selected','LabelsController@loadViewProductSelected');
     //Reports...
     Route::get('/reports/service-staff-report', 'ReportController@getServiceStaffReport');
     Route::get('/reports/service-staff-line-orders', 'ReportController@serviceStaffLineOrders');

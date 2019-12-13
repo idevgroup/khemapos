@@ -28,16 +28,24 @@ $(document).ready(function() {
         };
     }
 
-    $('input#is_show_price').change(function() {
-        if ($(this).is(':checked')) {
+    $(document).on('change','input#is_show_price',function(){
+          if ($(this).is(':checked')) {
             $('div#price_type_div').show();
         } else {
             $('div#price_type_div').hide();
         }
-    });
+    })
 
-    $('button#labels_preview').click(function() {
-        if ($('form#preview_setting_form table#product_table tbody tr').length > 0) {
+//    $('input#is_show_price').change(function() {
+//        if ($(this).is(':checked')) {
+//            $('div#price_type_div').show();
+//        } else {
+//            $('div#price_type_div').hide();
+//        }
+//    });
+    
+    $(document).on('click','button#labels_preview',function(){
+         if ($('form#preview_setting_form table#product_table tbody tr').length > 0) {
             var url = base_path + '/labels/preview?' + $('form#preview_setting_form').serialize();
 
             window.open(url, 'newwindow');
@@ -62,7 +70,36 @@ $(document).ready(function() {
                 $('#search_product_for_label').focus();
             });
         }
-    });
+    })
+    
+    
+//    $('button#labels_preview').click(function() {
+//        if ($('form#preview_setting_form table#product_table tbody tr').length > 0) {
+//            var url = base_path + '/labels/preview?' + $('form#preview_setting_form').serialize();
+//
+//            window.open(url, 'newwindow');
+//
+//            // $.ajax({
+//            //     method: 'get',
+//            //     url: '/labels/preview',
+//            //     dataType: 'json',
+//            //     data: $('form#preview_setting_form').serialize(),
+//            //     success: function(result) {
+//            //         if (result.success) {
+//            //             $('div.display_label_div').removeClass('hide');
+//            //             $('div#preview_box').html(result.html);
+//            //             __currency_convert_recursively($('div#preview_box'));
+//            //         } else {
+//            //             toastr.error(result.msg);
+//            //         }
+//            //     },
+//            // });
+//        } else {
+//            swal(LANG.label_no_product_error).then(value => {
+//                $('#search_product_for_label').focus();
+//            });
+//        }
+//    });
 
     $(document).on('click', 'button#print_label', function() {
         window.print();
