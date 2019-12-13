@@ -534,6 +534,7 @@ class TransactionUtil extends Util {
             return true;
         }
         $c = 0;
+        \Log::info($payments);
         foreach ($payments as $payment) {
             //Check if transaction_sell_lines_id is set.
             if (!empty($payment['payment_id'])) {
@@ -541,9 +542,9 @@ class TransactionUtil extends Util {
                 $this->editPaymentLine($payment, $transaction, $uf_data);
             } else {
                 $payment_amount = $uf_data ? $this->num_uf($payment['amount']) : $payment['amount'];
-                $payment_amount = (float) $payment_amount + ($this->num_uf($payment['amountkhr']) / $this->num_uf($exchange_khr_in));
+                $payment_amount = (float) $payment_amount + ($this->num_uf($payment['amount_khr']) / $this->num_uf($exchange_khr_in));
                 $amount_trail = $uf_data ? $this->num_uf($payment['amount']) : $payment['amount'];
-                $paying_khr = $this->num_uf($payment['amountkhr']);
+                $paying_khr = $this->num_uf($payment['amount_khr']);
                 //If amount is 0 then skip.
                 if ($payment_amount != 0) {
                     $prefix_type = 'sell_payment';

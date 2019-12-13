@@ -239,7 +239,16 @@
 <div class="modal fade quick_add_product_modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"></div>
 
 @stop
+<?php
+$v = $business_details->exchange_rate;
+$rateKHR = $v['KHR'];
+$rateKHR_IN = $v['KHR_IN'];
+?>
 @section('javascript')
+<script type="text/javascript">
+    var khr = {{$rateKHR}}
+    var khr_in = {{$rateKHR_IN}}
+</script>
 	<script src="{{ asset('js/pos.js?v=' . $asset_v) }}"></script>
 	<script src="{{ asset('js/printer.js?v=' . $asset_v) }}"></script>
 	<script src="{{ asset('js/product.js?v=' . $asset_v) }}"></script>
@@ -269,5 +278,9 @@
 		    margin-top: 0mm;
 		    margin-bottom: 0mm;
 		}
+                 span.total_payable_khr,span.total_paying_khr,span.change_return_khr{
+        float: right;
+        margin-bottom: 0px;
+    }
 	</style>
 @endsection

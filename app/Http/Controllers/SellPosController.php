@@ -92,7 +92,7 @@ class SellPosController extends Controller
         $this->moduleUtil = $moduleUtil;
         $this->notificationUtil = $notificationUtil;
 
-        $this->dummyPaymentLine = ['method' => 'cash', 'amount' => 0,'amountkhr'=>0, 'note' => '', 'card_transaction_number' => '', 'card_number' => '', 'card_type' => '', 'card_holder_name' => '', 'card_month' => '', 'card_year' => '', 'card_security' => '', 'cheque_number' => '', 'bank_account_number' => '',
+        $this->dummyPaymentLine = ['method' => 'cash', 'amount' => 0,'amount_khr'=>0, 'note' => '', 'card_transaction_number' => '', 'card_number' => '', 'card_type' => '', 'card_holder_name' => '', 'card_month' => '', 'card_year' => '', 'card_security' => '', 'cheque_number' => '', 'bank_account_number' => '',
         'is_return' => 0, 'transaction_no' => ''];
     }
 
@@ -849,7 +849,7 @@ class SellPosController extends Controller
             $redeem_details['points'] += $transaction->rp_redeemed;
             $redeem_details['points'] -= $transaction->rp_earned;
         }
-        
+       // dd($payment_lines);
         return view('sale_pos.edit')
             ->with(compact('business_details', 'taxes', 'payment_types', 'walk_in_customer', 'sell_details', 'transaction', 'payment_lines', 'location_printer_type', 'shortcuts', 'commission_agent', 'categories', 'pos_settings', 'change_return', 'types', 'customer_groups', 'brands', 'accounts', 'price_groups', 'waiters', 'redeem_details'));
     }

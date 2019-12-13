@@ -37,7 +37,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-money"></i>
                 </span>
-                {!! Form::text("payment[$row_index][amountkhr]", @num_format($payment_line['amountkhr']), ['class' => 'form-control payment-amount-khr input_number', 'id' => "amountkhr_$row_index", 'placeholder' => __('sale.amount')]); !!}
+                {!! Form::text("payment[$row_index][amount_khr]", @num_format($payment_line['amount_khr']), ['class' => 'form-control payment-amount-khr input_number', 'id' => "amountkhr_$row_index", 'placeholder' => __('sale.amount')]); !!}
             </div>
         </div>
     </div>
