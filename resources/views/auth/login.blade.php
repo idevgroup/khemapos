@@ -70,8 +70,7 @@
                             <label>
                                 <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> @lang('lang_v1.remember_me')
                             </label>
-                        </div>
-                         <select class="form-control input-sm" id="change_lang">
+                             <select class="input-sm pull-right" id="change_lang">
 		            @foreach(config('constants.langs') as $key => $val)
 		                <option value="{{$key}}" 
 		                	@if( (empty(request()->lang) && config('app.locale') == $key) 
@@ -83,6 +82,8 @@
 		                </option>
 		            @endforeach
 		        </select>
+                        </div>
+                        
                     </div>
                     <br>
                     <div class="form-group">
