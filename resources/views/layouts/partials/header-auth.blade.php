@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="pull-left mt-10">
-		        <select class="form-control input-sm" id="change_lang">
+<!--		        <select class="form-control input-sm" id="change_lang">
 		            @foreach(config('constants.langs') as $key => $val)
 		                <option value="{{$key}}" 
 		                	@if( (empty(request()->lang) && config('app.locale') == $key) 
@@ -17,7 +17,7 @@
 		                	{{$val['full_name']}}
 		                </option>
 		            @endforeach
-		        </select>
+		        </select>-->
 	    	</div>
 		</div>
 		<div class="col-md-6">
