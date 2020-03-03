@@ -82,7 +82,7 @@ return [
     'print_label' => 'Add products ->Choose informations to show in Labels -> Select Barcode Setting -> Preview Labels -> Print',
 
     'expense_for' => 'Choose the user for which expense is related to. <i>(Optional)</i><br/><small>Example: Salary of an employee.</small>',
-    
+
     'all_location_permission' => 'If <b>All Locations</b> selected this role will have permission to access all business locations',
 
     'dashboard_permission' => 'If unchecked only Welcome message will be displayed in Home.',

@@ -11,18 +11,18 @@ return [
     |
     */
 
-    'product' => 'Product',
-    'qty' => 'Quantity',
-    'unit_price' => 'Unit Price',
+    'product' => 'ផលិតផល',
+    'qty' => 'បរិមាណ',
+    'unit_price' => 'តម្លៃ​ឯកតា',
     'subtotal' => 'Subtotal',
-    'discount' => 'Discount',
-    'tax' => 'Tax',
-    'total' => 'Total',
-    'invoice_number' => 'Invoice No.',
-    'date' => 'Date',
-    'receipt_settings' => 'Receipt Settings',
+    'discount' => 'បញ្ចុះតម្លៃ',
+    'tax' => 'ពន្ធ',
+    'total' => 'សរុប',
+    'invoice_number' => 'វិក័យប័ត្រ លេខ.',
+    'date' => 'កាលបរិច្ឆេទ',
+    'receipt_settings' => 'ការកំណត់បង្កាន់ដៃ',
     'receipt_settings_mgs' => 'All receipt related settings for this location',
     'print_receipt_on_invoice' => 'Auto print invoice after finalizing',
-    'receipt_printer_type' => 'Receipt Printer Type',
+    'receipt_printer_type' => 'ប្រភេទបង្កាន់ដៃម៉ាស៊ីនព្រីន',
     'receipt_settings_updated' => 'Receipt Setting updated succesfully'
 ];
