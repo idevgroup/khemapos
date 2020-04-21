@@ -1686,6 +1686,7 @@ function round_row_to_iraqi_dinnar(row) {
 }
 
 function pos_print(receipt) {
+    console.log(receipt);
     //If printer type then connect with websocket
     if (receipt.print_type == 'printer') {
         var content = receipt;

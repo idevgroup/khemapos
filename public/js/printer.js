@@ -1,5 +1,5 @@
 var socket = null;
-var socket_host = 'ws://127.0.0.1:6441';
+var socket_host = 'ws://202.62.37.18:9100';
 
 initializeSocket = function() {
     try {
